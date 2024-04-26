@@ -1,30 +1,24 @@
 'use strict'
 
-import { Schema, model, version } from 'mongoose'
+import { Schema, model } from "mongoose"
 
-const userSchema = Schema({
-    email: {
-        type: String,
-        required: true
-    },
-    password: {
-        type: String,
-        required: true
-    },
+const hotelSchema = Schema({
     name: {
         type: String,
         required: true
     },
-    lastname: {
+    country: {
         type: String,
         required: true
     },
-    role: {
+    address: {
         type: String,
-        uppercase: true,
-        enum: ['CLIENT','ADMIN'],
         required: true
     },
+    description: {
+        type: String,
+        required: true
+    }
 },
 {
     timestamps: {
@@ -34,4 +28,4 @@ const userSchema = Schema({
     versionkey: false
 })
 
-export default model('user', userSchema)
+export default model('hotel', hotelSchema)
