@@ -4,6 +4,7 @@ import morgan from 'morgan'
 import express from 'express'
 import { config } from 'dotenv'
 import userRoutes from '../routes/user.routes.js'
+import hotelRoutes from '../routes/hotel.routes.js'
 
 const app = express()
 config()
@@ -17,6 +18,7 @@ app.use(morgan('dev'))
 
 //Rutas hacia los controladores
 app.use('/user', userRoutes)
+app.use('/hotel', hotelRoutes)
 
 export const initServer = ()=>{
     app.listen(port)

@@ -3,9 +3,14 @@
 import { Schema, model } from 'mongoose'
 
 const userSchema = Schema({
-    email: {
+    username: {
         type: String,
         required: true
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true
     },
     password: {
         type: String,
@@ -33,11 +38,11 @@ const userSchema = Schema({
     }
 },
 {
+    versionkey: false,
     timestamps: {
         createdAt: 'created_at',
         updatedAt: 'updated_at'
-    },
-    versionkey: false
+    }
 })
 
 export default model('user', userSchema)

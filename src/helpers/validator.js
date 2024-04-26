@@ -17,3 +17,18 @@ export const checkPassword = async(password, hash)=>{
         return err
     }
 }
+
+export const checkUpdate = (data, userId)=>{
+    if(userId){
+        if(
+            Object.entries(data).length === 0 ||
+            data.password  ||
+            data.password == '' ||
+            data.role ||
+            data.role == '' ||
+            data.email ||
+            data.email == ''
+        ) return false
+        return true
+    }
+}
