@@ -72,7 +72,7 @@ export const login = async(req, res)=>{
 
 export const updateUser = async(req, res)=>{
     try{
-        let { id } = req.params
+        let id = req.user._id
         let data = req.body
         let update = checkUpdate(data, id)
         if(!update) return res.status(400).send({message: 'Ha enviado información que no se puede actualizar, o hace falta información'})
@@ -82,7 +82,7 @@ export const updateUser = async(req, res)=>{
             {new: true}
         )
         if(!updatedUser) return res.status(404).send({message: 'Usuario no encontrado, no se ha actualizado'})
-        return res.send({message: 'Usuario actualizado', updatedUser})
+        return res.status(200).send({message: 'Usuario actualizado', updatedUser})
     }catch(err){
         console.error(err)
         return res.status(500).send({message: 'Error actualizando la cuenta'})
@@ -91,7 +91,7 @@ export const updateUser = async(req, res)=>{
 
 export const deleteUser = async(req, res)=> {
     try{
-        let { id } = req.params
+        let id = req.user._id
         let data = {
             tp_status: 'DELETED'
         } 
@@ -111,10 +111,10 @@ export const deleteUser = async(req, res)=> {
 export const userAdminDefault = async()=>{
     try{
         const data = {
-            name: 'Rubén',
-            lastname: 'Paredes',
-            username: 'rparedes',
-            email: 'rparedes@kinal.edu.gt',
+            name: 'Josué',
+            lastname: 'Noj',
+            username: 'jnoj',
+            email: 'jnoj@gmail.com',
             password: await encrypt('12345678'),
             role: 'ADMIN',
             tp_status: 'ACTIVE'

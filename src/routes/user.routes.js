@@ -9,7 +9,7 @@ const api = Router()
 api.post('/newUser', newUser)
 api.post('/newAdmin', newAdmin)
 api.post('/login', login)
-api.put('/update/:id', [validateJwt], updateUser)
-api.get('/delete/:id', [validateJwt], deleteUser)
+api.put('/update', [validateJwt], updateUser)
+api.get('/delete', [validateJwt], deleteUser)
 
 export default api
