@@ -6,6 +6,8 @@ import { config } from 'dotenv'
 import userRoutes from '../routes/user.routes.js'
 import hotelRoutes from '../routes/hotel.routes.js'
 import favoriteHotelRoutes from '../routes/favoriteHotels.routes.js'
+import typeRoomRoutes from '../routes/typeRoom.routes.js'
+import roomRoutes from '../routes/room.routes.js'
 
 const app = express()
 config()
@@ -21,6 +23,8 @@ app.use(morgan('dev'))
 app.use('/user', userRoutes)
 app.use('/hotel', hotelRoutes)
 app.use('/favoriteHotel', favoriteHotelRoutes)
+app.use('/typeRoom', typeRoomRoutes)
+app.use('/room', roomRoutes)
 
 export const initServer = ()=>{
     app.listen(port)
