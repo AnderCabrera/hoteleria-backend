@@ -11,7 +11,7 @@ const userSchema = Schema(
     email: {
       type: String,
       required: true,
-      unique: true,
+      unique: [true, 'Email already exists'],
     },
     password: {
       type: String,
@@ -28,7 +28,7 @@ const userSchema = Schema(
     role: {
       type: String,
       uppercase: true,
-      enum: ['CLIENT', 'ADMIN'],
+      enum: ['CLIENT', 'ADMIN_HOTEL', 'ADMIN_APP'],
       required: true,
     },
     tp_status: {
@@ -47,4 +47,4 @@ const userSchema = Schema(
   },
 );
 
-export default model('user', userSchema);
+export default model('User', userSchema);

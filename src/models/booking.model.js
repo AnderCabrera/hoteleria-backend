@@ -32,4 +32,4 @@ const bookingSchema = Schema(
   },
 );
 
-export default model('booking', bookingSchema);
+export default model('Booking', bookingSchema);

@@ -19,13 +19,13 @@ const reviewSchema = Schema(
       required: true,
     },
     user_id: {
-      type: Schema.ObjectId,
-      ref: 'user',
+      type: Schema.Types.ObjectId,
+      ref: 'User',
       required: true,
     },
     hotel_id: {
-      type: Schema.ObjectId,
-      ref: 'hotel',
+      type: Schema.Types.ObjectId,
+      ref: 'Hotel',
       required: true,
     },
   },
