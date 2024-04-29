@@ -4,8 +4,11 @@
   "description": "backend-hoteleria",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon src/index.js"
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "dev": "nodemon ./src/index.js",
+    "format": "prettier --write \"{src,tests}/**/*.js\"",
+    "prepare": "husky",
+    "add": "git add ."
   },
   "repository": {
     "type": "git",

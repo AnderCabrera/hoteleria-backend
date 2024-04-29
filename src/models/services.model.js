@@ -1,34 +1,36 @@
-'use strict'
+'use strict';
 
-import { Schema, model } from "mongoose"
+import { Schema, model } from 'mongoose';
 
-const serviceSchema = Schema({
+const serviceSchema = Schema(
+  {
     name: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
     description: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
     tp_status: {
-        type: String,
-        uppercase: true,
-        enum: ['AVAILIABLE','DELETED','HIDDEN'],
-        required: true
+      type: String,
+      uppercase: true,
+      enum: ['AVAILIABLE', 'DELETED', 'HIDDEN'],
+      required: true,
     },
     price: {
-        type: Number,
-        required: true
+      type: Number,
+      required: true,
     },
     hotel: {
-        type: Schema.ObjectId,
-        ref: 'hotel',
-        required: true
-    }
-},
-{
-    versionKey: false
-})
+      type: Schema.ObjectId,
+      ref: 'hotel',
+      required: true,
+    },
+  },
+  {
+    versionKey: false,
+  },
+);
 
-export default model('service', serviceSchema)
+export default model('service', serviceSchema);

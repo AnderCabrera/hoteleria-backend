@@ -1,32 +1,34 @@
-'use strict'
+'use strict';
 
-import { Schema, model } from "mongoose"
+import { Schema, model } from 'mongoose';
 
-const servicesAdquiredSchema = Schema({
+const servicesAdquiredSchema = Schema(
+  {
     service: {
-        type: Schema.ObjectId,
-        ref: 'service',
-        required: true
+      type: Schema.ObjectId,
+      ref: 'service',
+      required: true,
     },
     date_adquired: {
-        type: Date,
-        required: true
+      type: Date,
+      required: true,
     },
     date_start: {
-        type: Date,
-        required: true
+      type: Date,
+      required: true,
     },
     date_end: {
-        type: Date,
-        required: true
+      type: Date,
+      required: true,
     },
     total: {
-        type: Number,
-        required: true
-    }
-},
-{
-    versionKey: false
-})
+      type: Number,
+      required: true,
+    },
+  },
+  {
+    versionKey: false,
+  },
+);
 
-export default model('servicesAdquired', servicesAdquiredSchema)
+export default model('servicesAdquired', servicesAdquiredSchema);

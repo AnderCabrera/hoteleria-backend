@@ -1,33 +1,35 @@
-'use strict'
+'use strict';
 
-import { Schema, model } from "mongoose"
+import { Schema, model } from 'mongoose';
 
-const bookingSchema = Schema({
+const bookingSchema = Schema(
+  {
     date_start: {
-        type: Date,
-        required: true
+      type: Date,
+      required: true,
     },
     date_end: {
-        type: Date,
-        required: true
+      type: Date,
+      required: true,
     },
     room: {
-        type: Schema.ObjectId,
-        ref: 'room',
-        required: true
+      type: Schema.ObjectId,
+      ref: 'room',
+      required: true,
     },
     user: {
-        type: Schema.ObjectId,
-        ref: 'user',
-        required: true
-    }
-},
-{
-    timestamps: {
-        createdAt: 'created_at',
-        updatedAt: 'updated_at'
+      type: Schema.ObjectId,
+      ref: 'user',
+      required: true,
     },
-    versionkey: false
-})
+  },
+  {
+    timestamps: {
+      createdAt: 'created_at',
+      updatedAt: 'updated_at',
+    },
+    versionkey: false,
+  },
+);
 
-export default model('booking', bookingSchema)
+export default model('booking', bookingSchema);

@@ -1,15 +1,17 @@
-'use strict'
+'use strict';
 
-import { Schema, model } from "mongoose"
+import { Schema, model } from 'mongoose';
 
-const typeRoomSchema = Schema({
+const typeRoomSchema = Schema(
+  {
     type: {
-        type: Schema,
-        required: true
-    }
-},
-{
-    versionKey: false
-})
+      type: Schema,
+      required: true,
+    },
+  },
+  {
+    versionKey: false,
+  },
+);
 
-export default model('typeRoom', typeRoomSchema)
+export default model('typeRoom', typeRoomSchema);

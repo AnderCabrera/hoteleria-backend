@@ -1,134 +1,143 @@
-'use strict'
+'use strict';
 
-import User from '../models/user.model.js'
-import { encrypt, checkPassword } from '../helpers/validator.js'
-import { generateJwt } from '../helpers/jwt.js'
-import { checkUpdate } from '../helpers/validator.js'
+import User from '../models/user.model.js';
+import { encrypt, checkPassword } from '../helpers/validator.js';
+import { generateJwt } from '../helpers/jwt.js';
+import { checkUpdate } from '../helpers/validator.js';
 
+export const newUser = async (req, res) => {
+  try {
+    let data = req.body;
+    data.password = await encrypt(data.password);
+    data.role = 'CLIENT';
+    data.tp_status = 'ACTIVE';
+    let user = new User(data);
+    await user.save();
+    return res.send({ message: 'Usuario registrado exitosamente' });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).send({ message: 'Error al crear un nuevo usuario' });
+  }
+};
 
-export const newUser = async(req, res) => {
-    try{
-        let data = req.body
-        data.password = await encrypt(data.password)
-        data.role = 'CLIENT'
-        data.tp_status = 'ACTIVE'
-        let user = new User(data)
-        await user.save()
-        return res.send({message: 'Usuario registrado exitosamente'})
-    }catch(err){
-        console.error(err)
-        return res.status(500).send({message: 'Error al crear un nuevo usuario'})
+export const newAdmin = async (req, res) => {
+  try {
+    let data = req.body;
+    data.password = await encrypt(data.password);
+    data.role = 'ADMIN';
+    data.tp_status = 'ACTIVE';
+    let user = new User(data);
+    await user.save();
+    return res.send({ message: 'Admin registrado exitosamente' });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).send({ message: 'Error registrando al Admin' });
+  }
+};
+
+export const login = async (req, res) => {
+  try {
+    let { username, password, email } = req.body;
+    let user = await User.findOne({
+      $or: [
+        {
+          username: username,
+        },
+        {
+          email: email,
+        },
+      ],
+    });
+    if (user && (await checkPassword(password, user.password))) {
+      let loggedUser = {
+        uid: user._id,
+        username: user.username,
+        name: user.name,
+        role: user.role,
+      };
+      let token = await generateJwt(loggedUser);
+      return res.send({
+        message: `Bienvenido ${loggedUser.username}`,
+        loggedUser,
+        token,
+      });
     }
-}
+    return res.status(404).send({ message: 'Credenciales invalidas' });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).send({ message: 'Error al logear' });
+  }
+};
 
-export const newAdmin = async(req, res)=>{
-    try{
-        let data = req.body
-        data.password = await encrypt(data.password)
-        data.role = 'ADMIN'
-        data.tp_status = 'ACTIVE'
-        let user = new User(data)
-        await user.save()
-        return res.send({message: 'Admin registrado exitosamente'})
-    }catch(err){
-        console.error(err)
-        return res.status(500).send({message: 'Error registrando al Admin'})
-    }
-}
+export const updateUser = async (req, res) => {
+  try {
+    let id = req.user._id;
+    let data = req.body;
+    let update = checkUpdate(data, id);
+    if (!update)
+      return res.status(400).send({
+        message:
+          'Ha enviado información que no se puede actualizar, o hace falta información',
+      });
+    let updatedUser = await User.findOneAndUpdate({ _id: id }, data, {
+      new: true,
+    });
+    if (!updatedUser)
+      return res
+        .status(404)
+        .send({ message: 'Usuario no encontrado, no se ha actualizado' });
+    return res
+      .status(200)
+      .send({ message: 'Usuario actualizado', updatedUser });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).send({ message: 'Error actualizando la cuenta' });
+  }
+};
 
-export const login = async(req, res)=>{
-    try{
-        let { username, password, email } = req.body
-        let user = await User.findOne({
-            $or: [{
-                username: username
-            },
-            {
-                email: email
-            }]
-        })
-        if(user && await checkPassword(password, user.password)){
-            let loggedUser = {
-                uid: user._id,
-                username: user.username,
-                name: user.name,
-                role: user.role
-            }
-            let token = await generateJwt(loggedUser)
-            return res.send(
-                {
-                    message: `Bienvenido ${loggedUser.username}`,
-                    loggedUser,
-                    token
-                }
-            )
-        }
-        return res.status(404).send({message: 'Credenciales invalidas'})
-    }catch(err){
-        console.error(err)
-        return res.status(500).send({message: 'Error al logear'})
-    }
-}
+export const deleteUser = async (req, res) => {
+  try {
+    let id = req.user._id;
+    let data = {
+      tp_status: 'DELETED',
+    };
+    let deletedUser = await User.findOneAndUpdate(
+      { _id: id, tp_status: 'ACTIVE' },
+      data,
+      { new: true },
+    );
+    if (!deletedUser)
+      return res
+        .status(404)
+        .send({ message: 'Usuario no encontrado, no se ha actualizado' });
+    return res.status(200).send({ message: 'Usuario eliminado con exito' });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).send({ message: 'Error eliminando la cuenta' });
+  }
+};
 
-export const updateUser = async(req, res)=>{
-    try{
-        let id = req.user._id
-        let data = req.body
-        let update = checkUpdate(data, id)
-        if(!update) return res.status(400).send({message: 'Ha enviado información que no se puede actualizar, o hace falta información'})
-        let updatedUser = await User.findOneAndUpdate(
-            {_id: id},
-            data,
-            {new: true}
-        )
-        if(!updatedUser) return res.status(404).send({message: 'Usuario no encontrado, no se ha actualizado'})
-        return res.status(200).send({message: 'Usuario actualizado', updatedUser})
-    }catch(err){
-        console.error(err)
-        return res.status(500).send({message: 'Error actualizando la cuenta'})
+export const userAdminDefault = async () => {
+  try {
+    const data = {
+      name: 'Josué',
+      lastname: 'Noj',
+      username: 'jnoj',
+      email: 'jnoj@gmail.com',
+      password: await encrypt('12345678'),
+      role: 'ADMIN',
+      tp_status: 'ACTIVE',
+    };
+    let defualtCreated = await User.findOne({ email: data.email });
+    if (!defualtCreated) {
+      let user = new User(data);
+      await user.save();
+      console.log('Usuario admin default creado con exito');
+    } else {
+      console.log('Usuario default creado con anterioridad');
     }
-}
-
-export const deleteUser = async(req, res)=> {
-    try{
-        let id = req.user._id
-        let data = {
-            tp_status: 'DELETED'
-        } 
-        let deletedUser = await User.findOneAndUpdate(
-            {_id: id, tp_status: 'ACTIVE'},
-            data,
-            {new: true}
-        )
-        if(!deletedUser) return res.status(404).send({message: 'Usuario no encontrado, no se ha actualizado'})
-        return res.status(200).send({message: 'Usuario eliminado con exito'})
-    }catch(err){
-        console.error(err)
-        return res.status(500).send({message: 'Error eliminando la cuenta'})
-    }
-}
-
-export const userAdminDefault = async()=>{
-    try{
-        const data = {
-            name: 'Josué',
-            lastname: 'Noj',
-            username: 'jnoj',
-            email: 'jnoj@gmail.com',
-            password: await encrypt('12345678'),
-            role: 'ADMIN',
-            tp_status: 'ACTIVE'
-        }
-        let defualtCreated = await User.findOne({email: data.email})
-        if(!defualtCreated){
-            let user = new User(data)
-            await user.save()
-            console.log('Usuario admin default creado con exito')
-        }else{
-            console.log('Usuario default creado con anterioridad')
-        }
-    }catch(err){
-        console.error(err)
-        console.log('Error creando al usuario Admin por defecto')
-    }
-}
+  } catch (err) {
+    console.error(err);
+    console.log('Error creando al usuario Admin por defecto');
+  }
+};
