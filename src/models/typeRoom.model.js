@@ -4,14 +4,14 @@ import { Schema, model } from 'mongoose';
 
 const typeRoomSchema = Schema(
   {
-    type: {
+    name: {
       type: Schema,
       required: true,
-    },
+    }
   },
   {
     versionKey: false,
-  },
+  }
 );
 
 export default model('typeRoom', typeRoomSchema);

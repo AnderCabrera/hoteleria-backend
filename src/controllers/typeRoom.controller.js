@@ -3,7 +3,7 @@
 import TypeRoom from '../models/typeRoom.model.js';
 import Room from '../models/room.model.js';
 
-export const newTypeRoom = async (res, res) => {
+export const newTypeRoom = async (req, res) => {
   try {
     let data = req.body;
     let typeRoom = new TypeRoom(data);

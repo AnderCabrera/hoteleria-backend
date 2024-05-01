@@ -1,6 +1,6 @@
 'use strict';
 
-import FavoriteHotels from '../models/favoriteHotels.model.js';
+import FavoriteHotels from '../models/favorite-hotels.model.js';
 
 export const newFavoriteHotel = async (req, res) => {
   try {
