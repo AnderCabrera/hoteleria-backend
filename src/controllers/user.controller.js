@@ -24,7 +24,7 @@ export const newAdmin = async (req, res) => {
   try {
     let data = req.body;
     data.password = await encrypt(data.password);
-    data.role = 'ADMIN';
+    data.role = 'ADMIN_APP';
     data.tp_status = 'ACTIVE';
     let user = new User(data);
     await user.save();
