@@ -125,7 +125,7 @@ export const userAdminDefault = async () => {
       username: 'jnoj',
       email: 'jnoj@gmail.com',
       password: await encrypt('12345678'),
-      role: 'ADMIN',
+      role: 'ADMIN_APP',
       tp_status: 'ACTIVE',
     };
     let defualtCreated = await User.findOne({ email: data.email });
