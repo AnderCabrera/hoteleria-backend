@@ -24,7 +24,7 @@ export const connect = async () => {
       console.log('MongoDB | reconnected to mongodb'),
     );
 
-    return await mongoose.connect('mongodb://127.0.0.1:27017/hotelSystem');
+    return await mongoose.connect('mongodb://127.0.0.1:27017/kinalStayDB');
   } catch (err) {
     console.error('Database connection failed', err);
   }
