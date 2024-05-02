@@ -23,7 +23,7 @@ export const validateJwt = async (req, res, next) => {
 export const isAdmin = async (req, res, next) => {
   try {
     let { role, name, username } = req.user;
-    if (!role || role !== 'ADMIN')
+    if (!role || role !== 'ADMIN_APP')
       res.status(401).send({ message: `No tienes acceso ${username}` });
     next();
   } catch (err) {
