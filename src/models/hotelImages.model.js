@@ -12,7 +12,7 @@ const hotelImagesSchema = Schema(
       type: Schema.ObjectId,
       ref: 'hotel',
       required: true,
-    },
+    }
   },
   {
     versionKey: false,
