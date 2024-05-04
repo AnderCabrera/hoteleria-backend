@@ -8,6 +8,8 @@ import hotelRoutes from '../routes/hotel.routes.js';
 import favoriteHotelRoutes from '../routes/favoriteHotels.routes.js';
 import typeRoomRoutes from '../routes/typeRoom.routes.js';
 import roomRoutes from '../routes/room.routes.js';
+import hotelImages from '../routes/hotelImages.routes.js';
+import roomImages from '../routes/roomImages.routes.js';
 
 const app = express();
 config();
@@ -25,6 +27,8 @@ app.use('/hotel', hotelRoutes);
 app.use('/favoriteHotel', favoriteHotelRoutes);
 app.use('/typeRoom', typeRoomRoutes);
 app.use('/room', roomRoutes);
+app.use('/hotelImages', hotelImages);
+app.use('/roomImages', roomImages);
 
 export const initServer = () => {
   app.listen(port);

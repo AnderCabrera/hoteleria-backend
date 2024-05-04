@@ -1,6 +1,8 @@
 'use strict';
 
 import Hotel from '../models/hotel.model.js';
+import Room from '../models/room.model.js';
+import FavoriteHotel from '../models/favorite-hotels.model.js';
 
 export const newHotel = async (req, res) => {
   try {
@@ -40,6 +42,8 @@ export const deleteHotel = async (req, res) => {
       return res
         .status(404)
         .send({ message: 'Hotel no encontrado, no se ha actualizado' });
+    let roomHotel = await Room.deleteMany({ idHotel: id });
+    let favoriteHotel = await FavoriteHotel.deleteMany({ hotel_id: id });
     return res.send({
       message: `El hotel ${deletedHotel.name} ha sido eliminado`,
     });
