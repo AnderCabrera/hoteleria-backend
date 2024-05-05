@@ -3,6 +3,9 @@
 import Hotel from '../models/hotel.model.js';
 import Room from '../models/room.model.js';
 import FavoriteHotel from '../models/favorite-hotels.model.js';
+import HotelImages from '../models/hotelImages.model.js';
+import Review from '../models/review.model.js';
+import { addInitialImage } from './hotelImages.controller.js';
 
 export const newHotel = async (req, res) => {
   try {
@@ -44,6 +47,8 @@ export const deleteHotel = async (req, res) => {
         .send({ message: 'Hotel no encontrado, no se ha actualizado' });
     let roomHotel = await Room.deleteMany({ idHotel: id });
     let favoriteHotel = await FavoriteHotel.deleteMany({ hotel_id: id });
+    let hotelImages = await HotelImages.deleteMany({ hotel_id: id });
+    let review = await Review.deleteMany({ hotel_id: id });
     return res.send({
       message: `El hotel ${deletedHotel.name} ha sido eliminado`,
     });
@@ -79,6 +84,10 @@ export const defaultHotel = async (req, res) => {
       let hotel = new Hotel(data);
       await hotel.save();
       console.log('Hotel default creado con exito');
+      await addInitialImage(
+        'https://images.trvl-media.com/lodging/1000000/10000/2500/2495/e890be21.jpg?impolicy=resizecrop&rw=575&rh=575&ra=fill',
+        hotel.name,
+      );
     } else {
       console.log('Hotel default creado con anterioridad');
     }
@@ -103,6 +112,10 @@ export const defaultHotel2 = async (req, res) => {
       let hotel = new Hotel(data);
       await hotel.save();
       console.log('Hotel default creado con exito');
+      await addInitialImage(
+        'https://cf.bstatic.com/xdata/images/hotel/max1024x768/509957921.jpg?k=cd6cb6f7a90d9241592d3c5cd5a31d1fd3a0c9ce3ff0087e78b1c4ae710eb7f7&o=&hp=1',
+        hotel.name,
+      );
     } else {
       console.log('Hotel default creado con anterioridad');
     }
@@ -126,6 +139,10 @@ export const defaultHotel3 = async (req, res) => {
       let hotel = new Hotel(data);
       await hotel.save();
       console.log('Hotel default creado con exito');
+      await addInitialImage(
+        'https://assets.hyatt.com/content/dam/hyatt/hyattdam/images/2017/08/27/2245/Hyatt-Centric-Guatemala-City-P033-Daylight-Exterior.jpg/Hyatt-Centric-Guatemala-City-P033-Daylight-Exterior.4x3.jpg?imwidth=628',
+        hotel.name,
+      );
     } else {
       console.log('Hotel default creado con anterioridad');
     }
@@ -149,6 +166,10 @@ export const defaultHotel4 = async (req, res) => {
       let hotel = new Hotel(data);
       await hotel.save();
       console.log('Hotel default creado con exito');
+      await addInitialImage(
+        'https://cf.bstatic.com/xdata/images/hotel/max500/513380399.jpg?k=a994c00aadde572aa3b4b1d39a7e8944a8217262c9850643de4435bd2e381a6d&o=&hp=1',
+        hotel.name,
+      );
     } else {
       console.log('Hotel default creado con anterioridad');
     }
@@ -171,6 +192,10 @@ export const defaultHotel5 = async (req, res) => {
       let hotel = new Hotel(data);
       await hotel.save();
       console.log('Hotel default creado con exito');
+      await addInitialImage(
+        'https://www.hilton.com/im/en/GUAGCGI/1454889/guagcgi-hotel-exterior-day-.jpg?impolicy=crop&cw=4928&ch=2759&gravity=NorthWest&xposition=0&yposition=252&rw=768&rh=430',
+        hotel.name,
+      );
     } else {
       console.log('Hotel default creado con anterioridad');
     }
@@ -194,6 +219,10 @@ export const defaultHotel6 = async (req, res) => {
       let hotel = new Hotel(data);
       await hotel.save();
       console.log('Hotel default creado con exito');
+      await addInitialImage(
+        'https://cf.bstatic.com/xdata/images/hotel/max1024x768/215129867.jpg?k=aa615ee89da2d9a4b2565cd8e5ad3675f5418b93c09d95cd8ed7dd2230bb29c3&o=&hp=1',
+        hotel.name,
+      );
     } else {
       console.log('Hotel default creado con anterioridad');
     }

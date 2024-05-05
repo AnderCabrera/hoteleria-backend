@@ -1,10 +1,13 @@
 'use strict';
 
 import ImagesHotel from '../models/hotelImages.model.js';
+import Hotel from '../models/hotel.model.js';
 
 //Esta función se va a usar en el controlador de hotel para que al momento de agregar un hotel, ponerle una imagen inicial
-export const addInitialImage = async (url, idHotel) => {
+export const addInitialImage = async (url, hotelName) => {
   try {
+    let foundedIdHotel = await Hotel.findOne({ name: hotelName });
+    let idHotel = foundedIdHotel._id;
     let data = {
       image_url: url,
       hotel_id: idHotel,
@@ -68,5 +71,23 @@ export const deleteImagesHotel = async (req, res) => {
     return res
       .status(500)
       .send({ message: 'Error al eliminar las imagenes del hotel' });
+  }
+};
+
+//se mete el id del hotel, para obtener sus imagenes
+export const getUrls = async (req, res) => {
+  try {
+    let { id } = req.params;
+    let foundedImages = await ImagesHotel.find({ hotel_id: id });
+    if (!foundedImages)
+      return res
+        .status(404)
+        .send({ message: 'No se ha encontrado ninguna imagen de este hotel' });
+    return res.send({ foundedImages });
+  } catch (err) {
+    console.error(err);
+    return res
+      .status(500)
+      .send({ message: 'Error al obtener las url de las imagenes' });
   }
 };

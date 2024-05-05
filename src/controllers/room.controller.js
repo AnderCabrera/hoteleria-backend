@@ -38,9 +38,11 @@ export const updateRoom = async (req, res) => {
   }
 };
 
+//id del hotel
 export const viewRooms = async (req, res) => {
   try {
-    let foundedRooms = await Room.find();
+    let { id } = req.params;
+    let foundedRooms = await Room.find({ id_hotel: id });
     if (!foundedRooms)
       return res
         .status(404)

@@ -1,6 +1,8 @@
 'use strict';
 
 import User from '../models/user.model.js';
+import FavoriteHotels from '../models/favorite-hotels.model.js';
+import Review from '../models/review.model.js';
 import { encrypt, checkPassword } from '../helpers/validator.js';
 import { generateJwt } from '../helpers/jwt.js';
 import { checkUpdate } from '../helpers/validator.js';
@@ -69,9 +71,24 @@ export const login = async (req, res) => {
   }
 };
 
+export const dataUser = async (req, res) => {
+  try {
+    let { id } = req.params;
+    let foundedUser = await User.findOne({ _id: id });
+    if (!foundedUser)
+      return res.status(404).send({ message: 'No se encontró al usuario' });
+    return res.send({ foundedUser });
+  } catch (err) {
+    console.error(err);
+    return res
+      .status(500)
+      .send({ message: 'Error al obtener los datos del usuario' });
+  }
+};
+
 export const updateUser = async (req, res) => {
   try {
-    let id = req.user._id;
+    let id = req.params;
     let data = req.body;
     let update = checkUpdate(data, id);
     if (!update)
@@ -97,7 +114,7 @@ export const updateUser = async (req, res) => {
 
 export const deleteUser = async (req, res) => {
   try {
-    let id = req.user._id;
+    let id = req.params;
     let data = {
       tp_status: 'DELETED',
     };
@@ -110,6 +127,8 @@ export const deleteUser = async (req, res) => {
       return res
         .status(404)
         .send({ message: 'Usuario no encontrado, no se ha actualizado' });
+    let deletedFavorite = await FavoriteHotels.deleteMany({ user_id: id });
+    let deletedReviews = await Review.deleteMany({ user_id: id });
     return res.status(200).send({ message: 'Usuario eliminado con exito' });
   } catch (err) {
     console.error(err);
