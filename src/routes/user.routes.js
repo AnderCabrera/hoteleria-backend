@@ -16,8 +16,8 @@ const api = Router();
 api.post('/newUser', newUser);
 api.post('/newAdmin', newAdmin);
 api.post('/login', login);
-api.put('/update:id', [validateJwt], updateUser);
-api.get('/delete:id', [validateJwt], deleteUser);
-api.get('/search:id', [validateJwt], dataUser);
+api.put('/update/:id', [validateJwt], updateUser);
+api.get('/delete/:id', [validateJwt], deleteUser);
+api.get('/search/:id', [validateJwt], dataUser);
 
 export default api;

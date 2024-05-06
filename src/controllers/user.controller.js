@@ -49,6 +49,7 @@ export const login = async (req, res) => {
           email: email,
         },
       ],
+      tp_status: 'ACTIVE',
     });
     if (user && (await checkPassword(password, user.password))) {
       let loggedUser = {
@@ -88,7 +89,7 @@ export const dataUser = async (req, res) => {
 
 export const updateUser = async (req, res) => {
   try {
-    let id = req.params;
+    let { id } = req.params;
     let data = req.body;
     let update = checkUpdate(data, id);
     if (!update)
@@ -114,7 +115,7 @@ export const updateUser = async (req, res) => {
 
 export const deleteUser = async (req, res) => {
   try {
-    let id = req.params;
+    let { id } = req.params;
     let data = {
       tp_status: 'DELETED',
     };
