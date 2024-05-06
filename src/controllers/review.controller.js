@@ -2,10 +2,13 @@
 
 import Review from '../models/review.model.js';
 
+//tienen que meter el id del usuario y de hotel enviandolo desde el front
 export const newReview = async (req, res) => {
   try {
     let data = req.body;
-    data.user_id = req.params;
+    let { id, hotelId } = req.params;
+    data.user_id = id;
+    data.hotel_id = hotelId;
     //let founded falta buscar si el usuario ha reservado la habitación con anterioridad
     let review = new Review(data);
     await review.save();

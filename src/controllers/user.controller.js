@@ -129,7 +129,6 @@ export const deleteUser = async (req, res) => {
         .status(404)
         .send({ message: 'Usuario no encontrado, no se ha actualizado' });
     let deletedFavorite = await FavoriteHotels.deleteMany({ user_id: id });
-    let deletedReviews = await Review.deleteMany({ user_id: id });
     return res.status(200).send({ message: 'Usuario eliminado con exito' });
   } catch (err) {
     console.error(err);
