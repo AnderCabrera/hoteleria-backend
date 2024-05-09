@@ -7,11 +7,13 @@ import HotelImages from '../models/hotelImages.model.js';
 import Review from '../models/review.model.js';
 import { addInitialImage } from './hotelImages.controller.js';
 
+//Aqui meten los datos del hotel normal, y una url para que sea la imagen de portada del dashboard
 export const newHotel = async (req, res) => {
   try {
     let data = req.body;
     let hotel = new Hotel(data);
     await hotel.save();
+    await addInitialImage(data.url, data.name);
     return res.send({ message: 'Hotel creado con exito' });
   } catch (err) {
     console.error(err);
