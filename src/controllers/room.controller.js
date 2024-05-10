@@ -57,7 +57,12 @@ export const viewRooms = async (req, res) => {
 export const deleteRoom = async (req, res) => {
   try {
     let { id } = req.params;
-    let deletedRoom = await Room.findOneAndDelete({ _id: id });
+    let data = {
+      tp_status: 'DELETED',
+    };
+    let deletedRoom = await Room.findOneAndUpdate({ _id: id }, data, {
+      new: true,
+    });
     if (!deletedRoom)
       return res.status(404).send({
         message: 'No se ha encontrado la habitación, no se ha actualizado',
