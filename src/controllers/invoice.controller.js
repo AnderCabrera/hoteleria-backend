@@ -13,11 +13,9 @@ export const newInvoice = async (req, res) => {
       user: idUser,
     };
     if (!data)
-      return res
-        .status(500)
-        .send({
-          message: 'Debe tener todos los datos para hacer la reservación',
-        });
+      return res.status(500).send({
+        message: 'Debe tener todos los datos para hacer la reservación',
+      });
     let invoice = new Invoice(data);
     await invoice.save();
     return res
