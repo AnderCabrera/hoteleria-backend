@@ -12,7 +12,7 @@ import hotelImages from '../routes/hotelImages.routes.js';
 import roomImages from '../routes/roomImages.routes.js';
 import reviewRoutes from '../routes/review.routes.js';
 import bookingRoutes from '../routes/booking.routes.js';
-import servicesRoutes from '../routes/services.routes.js';
+import serviceRoutes from '../routes/service.routes.js';
 import invoiceRoutes from '../routes/invoice.routes.js';
 
 const app = express();
@@ -34,9 +34,9 @@ app.use('/room', roomRoutes);
 app.use('/hotelImages', hotelImages);
 app.use('/roomImages', roomImages);
 app.use('/review', reviewRoutes);
-app.use('/review', bookingRoutes);
-app.use('/review', servicesRoutes);
-app.use('/review', invoiceRoutes);
+app.use('/booking', bookingRoutes);
+app.use('/service', serviceRoutes);
+app.use('/invoice', invoiceRoutes);
 
 export const initServer = () => {
   app.listen(port);

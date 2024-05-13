@@ -13,11 +13,16 @@ import {
 
 initServer();
 connect();
-userAdminDefault();
-defaultHotel();
-defaultHotel2();
-defaultHotel3();
-defaultHotel4();
-defaultHotel5();
-defaultHotel6();
-typeRoomDefault();
+
+const cosasDefault = async () => {
+  await userAdminDefault();
+  await typeRoomDefault();
+  await defaultHotel();
+  await defaultHotel2();
+  await defaultHotel3();
+  await defaultHotel4();
+  await defaultHotel5();
+  await defaultHotel6();
+};
+
+cosasDefault();

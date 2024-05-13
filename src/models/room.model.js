@@ -12,7 +12,7 @@ const roomSchema = Schema(
       type: Number,
       required: true,
     },
-    nighPrice: {
+    nightPrice: {
       type: Number,
       required: true,
     },

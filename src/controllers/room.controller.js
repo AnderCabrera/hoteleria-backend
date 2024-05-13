@@ -1,6 +1,8 @@
 'use strict';
 
 import Room from '../models/room.model.js';
+import TypeRoom from '../models/typeRoom.model.js';
+import Hotel from '../models/hotel.model.js';
 
 export const newRoom = async (req, res) => {
   try {
@@ -42,11 +44,21 @@ export const updateRoom = async (req, res) => {
 export const viewRooms = async (req, res) => {
   try {
     let { id } = req.params;
-    let foundedRooms = await Room.find({ id_hotel: id });
-    if (!foundedRooms)
+    let foundedRooms = await Room.find({
+      $or: [
+        {
+          id_hotel: id,
+        },
+        {
+          roomType: id,
+        },
+      ],
+    });
+    if (!foundedRooms) {
       return res
         .status(404)
         .send({ message: 'No se han encontrado habitaciones' });
+    }
     return res.status(200).send({ foundedRooms });
   } catch (err) {
     console.error(err);
@@ -73,5 +85,28 @@ export const deleteRoom = async (req, res) => {
   } catch (err) {
     console.error(err);
     return res.status(500).send({ message: 'Error al eliminar la habitación' });
+  }
+};
+
+export const roomDefault = async (description, people, price, hotelName) => {
+  try {
+    let foundedType = await TypeRoom.findOne({ name: 'Default' });
+    let idType = foundedType._id;
+    let foundedIdHotel = await Hotel.findOne({ name: hotelName });
+    let idHotel = foundedIdHotel._id;
+    let data = {
+      description: description,
+      peopleCapacity: people,
+      nightPrice: price,
+      roomType: idType,
+      tp_status: 'ACTIVE',
+      idHotel: idHotel,
+    };
+    let room = new Room(data);
+    await room.save();
+    console.log('Habitación creada con éxito');
+  } catch (err) {
+    console.error(err);
+    return console.log('Error al agregar la habitación por default');
   }
 };

@@ -2,6 +2,7 @@
 
 import TypeRoom from '../models/typeRoom.model.js';
 import Room from '../models/room.model.js';
+import { roomDefault } from './room.controller.js';
 
 export const newTypeRoom = async (req, res) => {
   try {
