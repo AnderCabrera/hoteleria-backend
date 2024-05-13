@@ -6,7 +6,7 @@ import {
   newService,
   viewServices,
   deleteService,
-} from '../controllers/services.controller.js';
+} from '../controllers/service.controller.js';
 
 const api = Router();
 

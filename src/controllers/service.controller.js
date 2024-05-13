@@ -1,11 +1,12 @@
 'use strict';
 
-import Services from '../models/services.model.js';
+import Service from '../models/service.model.js';
+import Hotel from '../models/hotel.model.js';
 
 export const newService = async (req, res) => {
   try {
     let data = req.body;
-    let service = new Services(data);
+    let service = new Service(data);
     await service.save();
     return res.status(201).send({ message: 'Servicio creado exitosamente' });
   } catch (err) {
@@ -17,7 +18,7 @@ export const newService = async (req, res) => {
 export const viewServices = async (req, res) => {
   try {
     let { idHotel } = req.params;
-    let foundedServices = await Services.find({
+    let foundedServices = await Service.find({
       hotel: idHotel,
       tp_status: 'AVAILIABLE',
     });
@@ -40,7 +41,7 @@ export const deleteService = async (req, res) => {
     let data = {
       tp_status: 'DELETED',
     };
-    let deletedService = await Services.findOneAndUpdate(
+    let deletedService = await Service.findOneAndUpdate(
       { _id: idService },
       data,
       { new: true },
@@ -53,5 +54,25 @@ export const deleteService = async (req, res) => {
   } catch (err) {
     console.error(err);
     return res.status(500).send({ message: 'Error al eliminar el servicio' });
+  }
+};
+
+export const serviceDefault = async (name, description, price, hotelName) => {
+  try {
+    let hotel = await Hotel.findOne({ name: hotelName });
+    let hotelId = hotel._id;
+    let data = {
+      name: name,
+      description: description,
+      tp_status: 'AVAILIABLE',
+      price: price,
+      hotelId: hotelId,
+    };
+    let service = new Service(data);
+    await service.save();
+    console.log('Servicio default creado con éxito');
+  } catch (err) {
+    console.error(err);
+    console.log('Se creo el servicio con exito');
   }
 };
