@@ -11,7 +11,7 @@ import {
 const api = Router();
 
 api.post('/new', [validateJwt, isAdmin], newService);
-api.get('/view', [validateJwt], viewServices);
+api.get('/view/:idHotel', [validateJwt], viewServices);
 api.put('/delete/:idService', [validateJwt, isAdmin], deleteService);
 
 export default api;

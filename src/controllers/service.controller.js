@@ -19,7 +19,7 @@ export const viewServices = async (req, res) => {
   try {
     let { idHotel } = req.params;
     let foundedServices = await Service.find({
-      hotel: idHotel,
+      hotelId: idHotel,
       tp_status: 'AVAILIABLE',
     });
     if (!foundedServices)
