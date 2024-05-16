@@ -90,7 +90,30 @@ export const defaultHotel = async (req, res) => {
         'https://images.trvl-media.com/lodging/1000000/10000/2500/2495/e890be21.jpg?impolicy=resizecrop&rw=575&rh=575&ra=fill',
         hotel.name,
       );
-      await roomDefault('Habitación básica', 1, 40, hotel.name);
+      await roomDefault(
+        'Habitación básica',
+        1,
+        40,
+        'Individual',
+        hotel.name,
+        'https://www.derbyhotels.com/files/img/img_s/as-single-1-970.jpg',
+      );
+      await roomDefault(
+        'Habitación doble',
+        2,
+        50,
+        'Doble',
+        hotel.name,
+        'https://pensua.com/wp-content/uploads/Doble_estandar2camas.jpg',
+      );
+      await roomDefault(
+        'Habitación premium',
+        2,
+        70,
+        'Suite',
+        hotel.name,
+        'https://www.lavanguardia.com/files/article_gallery_microformat/uploads/2018/05/30/5fa437b2daf14.jpeg',
+      );
       await serviceDefault(
         'WI-FI',
         'Acceso a internet inalambricamente',
@@ -125,7 +148,30 @@ export const defaultHotel2 = async (req, res) => {
         'https://cf.bstatic.com/xdata/images/hotel/max1024x768/509957921.jpg?k=cd6cb6f7a90d9241592d3c5cd5a31d1fd3a0c9ce3ff0087e78b1c4ae710eb7f7&o=&hp=1',
         hotel.name,
       );
-      await roomDefault('Habitación básica', 1, 40, hotel.name);
+      await roomDefault(
+        'Habitación básica',
+        1,
+        40,
+        'Individual',
+        hotel.name,
+        'https://www.derbyhotels.com/files/img/img_s/as-single-1-970.jpg',
+      );
+      await roomDefault(
+        'Habitación doble',
+        2,
+        50,
+        'Doble',
+        hotel.name,
+        'https://pensua.com/wp-content/uploads/Doble_estandar2camas.jpg',
+      );
+      await roomDefault(
+        'Habitación premium',
+        2,
+        70,
+        'Suite',
+        hotel.name,
+        'https://www.lavanguardia.com/files/article_gallery_microformat/uploads/2018/05/30/5fa437b2daf14.jpeg',
+      );
       await serviceDefault(
         'WI-FI',
         'Acceso a internet inalambricamente',
@@ -159,7 +205,30 @@ export const defaultHotel3 = async (req, res) => {
         'https://assets.hyatt.com/content/dam/hyatt/hyattdam/images/2017/08/27/2245/Hyatt-Centric-Guatemala-City-P033-Daylight-Exterior.jpg/Hyatt-Centric-Guatemala-City-P033-Daylight-Exterior.4x3.jpg?imwidth=628',
         hotel.name,
       );
-      await roomDefault('Habitación básica', 1, 40, hotel.name);
+      await roomDefault(
+        'Habitación básica',
+        1,
+        40,
+        'Individual',
+        hotel.name,
+        'https://www.derbyhotels.com/files/img/img_s/as-single-1-970.jpg',
+      );
+      await roomDefault(
+        'Habitación doble',
+        2,
+        50,
+        'Doble',
+        hotel.name,
+        'https://pensua.com/wp-content/uploads/Doble_estandar2camas.jpg',
+      );
+      await roomDefault(
+        'Habitación premium',
+        2,
+        70,
+        'Suite',
+        hotel.name,
+        'https://www.lavanguardia.com/files/article_gallery_microformat/uploads/2018/05/30/5fa437b2daf14.jpeg',
+      );
       await serviceDefault(
         'WI-FI',
         'Acceso a internet inalambricamente',
@@ -193,7 +262,30 @@ export const defaultHotel4 = async (req, res) => {
         'https://cf.bstatic.com/xdata/images/hotel/max500/513380399.jpg?k=a994c00aadde572aa3b4b1d39a7e8944a8217262c9850643de4435bd2e381a6d&o=&hp=1',
         hotel.name,
       );
-      await roomDefault('Habitación básica', 1, 40, hotel.name);
+      await roomDefault(
+        'Habitación básica',
+        1,
+        40,
+        'Individual',
+        hotel.name,
+        'https://www.derbyhotels.com/files/img/img_s/as-single-1-970.jpg',
+      );
+      await roomDefault(
+        'Habitación doble',
+        2,
+        50,
+        'Doble',
+        hotel.name,
+        'https://pensua.com/wp-content/uploads/Doble_estandar2camas.jpg',
+      );
+      await roomDefault(
+        'Habitación premium',
+        2,
+        70,
+        'Suite',
+        hotel.name,
+        'https://www.lavanguardia.com/files/article_gallery_microformat/uploads/2018/05/30/5fa437b2daf14.jpeg',
+      );
       await serviceDefault(
         'WI-FI',
         'Acceso a internet inalambricamente',
@@ -226,7 +318,30 @@ export const defaultHotel5 = async (req, res) => {
         'https://www.hilton.com/im/en/GUAGCGI/1454889/guagcgi-hotel-exterior-day-.jpg?impolicy=crop&cw=4928&ch=2759&gravity=NorthWest&xposition=0&yposition=252&rw=768&rh=430',
         hotel.name,
       );
-      await roomDefault('Habitación básica', 1, 40, hotel.name);
+      await roomDefault(
+        'Habitación básica',
+        1,
+        40,
+        'Individual',
+        hotel.name,
+        'https://www.derbyhotels.com/files/img/img_s/as-single-1-970.jpg',
+      );
+      await roomDefault(
+        'Habitación doble',
+        2,
+        50,
+        'Doble',
+        hotel.name,
+        'https://pensua.com/wp-content/uploads/Doble_estandar2camas.jpg',
+      );
+      await roomDefault(
+        'Habitación premium',
+        2,
+        70,
+        'Suite',
+        hotel.name,
+        'https://www.lavanguardia.com/files/article_gallery_microformat/uploads/2018/05/30/5fa437b2daf14.jpeg',
+      );
       await serviceDefault(
         'WI-FI',
         'Acceso a internet inalambricamente',
@@ -260,7 +375,30 @@ export const defaultHotel6 = async (req, res) => {
         'https://cf.bstatic.com/xdata/images/hotel/max1024x768/215129867.jpg?k=aa615ee89da2d9a4b2565cd8e5ad3675f5418b93c09d95cd8ed7dd2230bb29c3&o=&hp=1',
         hotel.name,
       );
-      await roomDefault('Habitación básica', 1, 40, hotel.name);
+      await roomDefault(
+        'Habitación básica',
+        1,
+        40,
+        'Individual',
+        hotel.name,
+        'https://www.derbyhotels.com/files/img/img_s/as-single-1-970.jpg',
+      );
+      await roomDefault(
+        'Habitación doble',
+        2,
+        50,
+        'Doble',
+        hotel.name,
+        'https://pensua.com/wp-content/uploads/Doble_estandar2camas.jpg',
+      );
+      await roomDefault(
+        'Habitación premium',
+        2,
+        70,
+        'Suite',
+        hotel.name,
+        'https://www.lavanguardia.com/files/article_gallery_microformat/uploads/2018/05/30/5fa437b2daf14.jpeg',
+      );
       await serviceDefault(
         'WI-FI',
         'Acceso a internet inalambricamente',
