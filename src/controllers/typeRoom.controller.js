@@ -126,7 +126,7 @@ export const typeRoomDefault = async (name) => {
     const data = {
       name: name,
     };
-    let defaultTypeRoom = await TypeRoom.findOne({ type: data.name });
+    let defaultTypeRoom = await TypeRoom.findOne({ name: data.name });
     if (!defaultTypeRoom) {
       let typeRoom = new TypeRoom(data);
       await typeRoom.save();
