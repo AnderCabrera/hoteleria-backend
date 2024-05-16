@@ -12,8 +12,8 @@ import { validateJwt, isAdmin } from '../middlewares/validate-jwt.js';
 const api = Router();
 
 api.post('/new', [validateJwt, isAdmin], newRoom);
-api.put('/update:id', [validateJwt, isAdmin], updateRoom);
+api.put('/update/:id', [validateJwt, isAdmin], updateRoom);
 api.get('/get/:id/:idRoom', [validateJwt], viewRooms);
-api.delete('/delete:id', [validateJwt, isAdmin], deleteRoom);
+api.delete('/delete/:id', [validateJwt, isAdmin], deleteRoom);
 
 export default api;

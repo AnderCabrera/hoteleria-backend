@@ -10,8 +10,8 @@ import {
 
 const api = Router();
 
-api.post('/new:id', [validateJwt], newFavoriteHotel);
+api.post('/new/:id', [validateJwt], newFavoriteHotel);
 api.get('/view', [validateJwt], viewFavoriteHotels);
-api.delete('/delete:id', [validateJwt], deleteFavoriteHotel);
+api.delete('/delete/:id', [validateJwt], deleteFavoriteHotel);
 
 export default api;

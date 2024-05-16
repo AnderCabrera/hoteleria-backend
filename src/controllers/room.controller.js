@@ -3,6 +3,8 @@
 import Room from '../models/room.model.js';
 import TypeRoom from '../models/typeRoom.model.js';
 import Hotel from '../models/hotel.model.js';
+import { addInitialImage } from './roomImages.controller.js';
+import RoomImage from '../models/roomImages.model.js';
 
 export const newRoom = async (req, res) => {
   try {
@@ -82,9 +84,16 @@ export const deleteRoom = async (req, res) => {
   }
 };
 
-export const roomDefault = async (description, people, price, hotelName) => {
+export const roomDefault = async (
+  description,
+  people,
+  price,
+  typeRoom,
+  hotelName,
+  urlImage,
+) => {
   try {
-    let foundedType = await TypeRoom.findOne({ name: 'Default' });
+    let foundedType = await TypeRoom.findOne({ name: typeRoom });
     let idType = foundedType._id;
     let foundedIdHotel = await Hotel.findOne({ name: hotelName });
     let idHotel = foundedIdHotel._id;
@@ -96,8 +105,20 @@ export const roomDefault = async (description, people, price, hotelName) => {
       tp_status: 'ACTIVE',
       idHotel: idHotel,
     };
+
     let room = new Room(data);
     await room.save();
+    let roomFounded = await Room.findOne({
+      description: description,
+      roomType: idType,
+      idHotel: idHotel,
+    });
+    let data2 = {
+      image_url: urlImage,
+      room_id: roomFounded,
+    };
+    let roomImage = new RoomImage(data2);
+    await roomImage.save();
     console.log('Habitación creada con éxito');
   } catch (err) {
     console.error(err);

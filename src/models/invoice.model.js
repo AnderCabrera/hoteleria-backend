@@ -23,6 +23,12 @@ const invoiceSchema = Schema(
       ref: 'user',
       required: true,
     },
+    services: [
+      {
+        type: Schema.ObjectId,
+        ref: 'service',
+      },
+    ],
   },
   {
     timestamps: {

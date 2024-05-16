@@ -16,7 +16,9 @@ connect();
 
 const cosasDefault = async () => {
   await userAdminDefault();
-  await typeRoomDefault();
+  await typeRoomDefault('Individual');
+  await typeRoomDefault('Doble');
+  await typeRoomDefault('Suite');
   await defaultHotel();
   await defaultHotel2();
   await defaultHotel3();

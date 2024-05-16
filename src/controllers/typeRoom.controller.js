@@ -121,20 +121,20 @@ export const deleteTypeRoom = async (req, res) => {
   }
 };
 
-export const typeRoomDefault = async (req, res) => {
+export const typeRoomDefault = async (name) => {
   try {
     const data = {
-      name: 'Default',
+      name: name,
     };
-    let defaultTypeRoom = await TypeRoom.findOne({ type: data.type });
+    let defaultTypeRoom = await TypeRoom.findOne({ name: data.name });
     if (!defaultTypeRoom) {
       let typeRoom = new TypeRoom(data);
       await typeRoom.save();
-      console.log('Tipo de habitación default creado con exito');
+      console.log('Tipo de habitación creado con exito');
     }
-    console.log('Tipo de habitación default creado con anterioridad');
+    console.log('Tipo de habitación creado con anterioridad');
   } catch (err) {
     console.error(err);
-    console.log('Error al crear el tipo de habitación por defecto');
+    console.log('Error al crear el tipo de habitación');
   }
 };
