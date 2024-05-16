@@ -36,6 +36,24 @@ export const addImageRoom = async (req, res) => {
   }
 };
 
+export const getImageRoom = async (req, res) => {
+  try {
+    let { id } = req.params;
+    let foundedImageRoom = await RoomImages.find({ _id: id });
+    if (!foundedImageRoom) {
+      return res
+        .status(404)
+        .send({ message: 'No se han encontrado Imagenes para la habitación' });
+    }
+    return res.status(200).send({ foundedImageRoom });
+  } catch (err) {
+    console.error(err);
+    return res
+      .status(500)
+      .send({ message: 'Error con las imagenes de la habitacion' });
+  }
+};
+
 export const deleteImageRoom = async (req, res) => {
   try {
     let { id } = req.params;
