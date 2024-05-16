@@ -43,16 +43,10 @@ export const updateRoom = async (req, res) => {
 //id del hotel
 export const viewRooms = async (req, res) => {
   try {
-    let { id } = req.params;
+    let { id, idRoom } = req.params;
     let foundedRooms = await Room.find({
-      $or: [
-        {
-          id_hotel: id,
-        },
-        {
-          roomType: id,
-        },
-      ],
+      roomType: idRoom,
+      idHotel: id,
     });
     if (!foundedRooms) {
       return res
