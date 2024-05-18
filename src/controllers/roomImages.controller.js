@@ -39,7 +39,7 @@ export const addImageRoom = async (req, res) => {
 export const getImageRoom = async (req, res) => {
   try {
     let { id } = req.params;
-    let foundedImageRoom = await RoomImages.find({ _id: id });
+    let foundedImageRoom = await RoomImages.find({ room_id: id });
     if (!foundedImageRoom) {
       return res
         .status(404)
