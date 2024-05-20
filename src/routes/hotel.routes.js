@@ -6,6 +6,7 @@ import {
   updateHotel,
   deleteHotel,
   viewHotels,
+  viewHotelsSearch,
 } from '../controllers/hotel.controller.js';
 import { validateJwt, isAdmin } from '../middlewares/validate-jwt.js';
 
@@ -15,5 +16,6 @@ api.post('/newHotel', [validateJwt, isAdmin], newHotel);
 api.put('/update', [validateJwt, isAdmin], updateHotel);
 api.delete('/delete', [validateJwt, isAdmin], deleteHotel);
 api.get('/get', viewHotels);
+api.get('/search/:id', [validateJwt], viewHotelsSearch);
 
 export default api;

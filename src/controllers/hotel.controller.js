@@ -71,6 +71,18 @@ export const viewHotels = async (req, res) => {
     return res.status(500).send({ message: 'Error al visualizar los hoteles' });
   }
 };
+export const viewHotelsSearch = async (req, res) => {
+  try {
+    let { id } = req.params;
+    let hotelsFound = await Hotel.find({ _id: id });
+    if (!hotelsFound)
+      return res.status(404).send({ message: 'No se han encontrado hoteles' });
+    return res.send({ hotelsFound });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).send({ message: 'Error al visualizar los hoteles' });
+  }
+};
 
 export const defaultHotel = async (req, res) => {
   try {
