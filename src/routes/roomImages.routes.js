@@ -14,6 +14,6 @@ const api = Router();
 api.post('/new', [validateJwt, isAdmin], addImageRoom);
 api.delete('/delete/:id', [validateJwt, isAdmin], deleteImageRoom);
 api.delete('/deleteAll/:id', [validateJwt, isAdmin], deleteImagesRoom);
-api.get('/get', getImageRoom);
+api.get('/get/:id', [validateJwt], getImageRoom);
 
 export default api;

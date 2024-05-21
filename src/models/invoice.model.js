@@ -4,11 +4,6 @@ import { Schema, model } from 'mongoose';
 
 const invoiceSchema = Schema(
   {
-    id_transaction: {
-      type: Schema.ObjectId,
-      ref: 'servicesAdquired',
-      required: true,
-    },
     price: {
       type: Number,
       required: true,
