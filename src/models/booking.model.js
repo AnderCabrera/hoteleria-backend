@@ -12,14 +12,23 @@ const bookingSchema = Schema(
       type: Date,
       required: true,
     },
+    servicesAdquired: {
+      type: [
+        {
+          type: Schema.ObjectId,
+          ref: 'Service',
+        },
+      ],
+      required: true,
+    },
     room: {
       type: Schema.ObjectId,
-      ref: 'room',
+      ref: 'Room',
       required: true,
     },
     user: {
       type: Schema.ObjectId,
-      ref: 'user',
+      ref: 'User',
       required: true,
     },
   },

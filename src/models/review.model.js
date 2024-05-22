@@ -34,4 +34,4 @@ const reviewSchema = Schema(
   },
 );
 
-export default model('review', reviewSchema);
+export default model('Review', reviewSchema);
