@@ -36,12 +36,14 @@ const userSchema = Schema(
       uppercase: true,
       enum: ['CLIENT', 'ADMIN_HOTEL', 'ADMIN_APP'],
       required: true,
+      default: 'CLIENT',
     },
     tp_status: {
       type: String,
       uppercase: true,
       enum: ['ACTIVE', 'DELETED', 'BANNED'],
       required: true,
+      default: 'ACTIVE',
     },
   },
   {
