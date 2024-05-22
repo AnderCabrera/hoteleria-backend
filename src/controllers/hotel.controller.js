@@ -43,15 +43,18 @@ export const deleteHotel = async (req, res) => {
   try {
     let { id } = req.params;
     let deletedHotel = await Hotel.findOneAndDelete({ _id: id });
+
     if (!deletedHotel)
       return res
         .status(404)
         .send({ message: 'Hotel no encontrado, no se ha actualizado' });
-    let roomHotel = await Room.deleteMany({ idHotel: id });
-    let favoriteHotel = await FavoriteHotel.deleteMany({ hotel_id: id });
-    let hotelImages = await HotelImages.deleteMany({ hotel_id: id });
-    let review = await Review.deleteMany({ hotel_id: id });
-    return res.send({
+
+    await Room.deleteMany({ idHotel: id });
+    await FavoriteHotel.deleteMany({ hotel_id: id });
+    await HotelImages.deleteMany({ hotel_id: id });
+    await Review.deleteMany({ hotel_id: id });
+
+    return res.status(200).send({
       message: `El hotel ${deletedHotel.name} ha sido eliminado`,
     });
   } catch (err) {
