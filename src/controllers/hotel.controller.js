@@ -65,9 +65,11 @@ export const deleteHotel = async (req, res) => {
 
 export const viewHotels = async (req, res) => {
   try {
-    let hotelsFound = await Hotel.find();
+    let hotelsFound = await Hotel.find({});
+
     if (!hotelsFound)
       return res.status(404).send({ message: 'No se han encontrado hoteles' });
+
     return res.send({ hotelsFound });
   } catch (err) {
     console.error(err);

@@ -3,10 +3,28 @@
 import Service from '../models/service.model.js';
 import Hotel from '../models/hotel.model.js';
 
+export const getServices = async (req, res) => {
+  try {
+    const services = await Service.find({}).populate('hotelId', 'name');
+    return res.status(200).send({ services });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).send({ message: 'Error al obtener los servicios' });
+  }
+};
+
 export const newService = async (req, res) => {
   try {
-    let data = req.body;
-    let service = new Service(data);
+    let { name, description, price, hotelId } = req.body;
+
+    let service = new Service({
+      name: name,
+      description: description,
+      tp_status: 'AVAILIABLE',
+      price: price,
+      hotelId: hotelId,
+    });
+
     await service.save();
     return res.status(201).send({ message: 'Servicio creado exitosamente' });
   } catch (err) {

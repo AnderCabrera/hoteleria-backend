@@ -18,18 +18,16 @@ export const checkPassword = async (password, hash) => {
   }
 };
 
-export const checkUpdate = (data, userId) => {
-  if (userId) {
-    if (
-      Object.entries(data).length === 0 ||
-      data.password ||
-      data.password == '' ||
-      data.role ||
-      data.role == '' ||
-      data.email ||
-      data.email == ''
-    )
-      return false;
-    return true;
+export const checkUpdate = (data, id) => {
+  const { name, lastname, username, email, password } = data;
+
+  if (!name || !lastname || !username || !email || !id) {
+    return false;
   }
+
+  if (password && password.length < 6) {
+    return false;
+  }
+
+  return true;
 };

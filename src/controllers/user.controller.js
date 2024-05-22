@@ -101,24 +101,51 @@ export const updateUser = async (req, res) => {
   try {
     let { id } = req.params;
     let data = req.body;
+
+    console.log(`Updating user with ID: ${id}`);
+    console.log('Data received:', data);
+
+    // Validar la información actualizable
     let update = checkUpdate(data, id);
-    if (!update)
+    if (!update) {
       return res.status(400).send({
         message:
           'Ha enviado información que no se puede actualizar, o hace falta información',
       });
+    }
+
+    // Verificar si se proporcionan las contraseñas
+    if (data.password && data.passwordConfirm) {
+      if (data.password !== data.passwordConfirm) {
+        return res.status(400).send({
+          message: 'Las contraseñas no coinciden',
+        });
+      }
+      // Encriptar la nueva contraseña
+      data.password = await encrypt(data.passwordConfirm);
+      delete data.passwordConfirm; // eliminar el campo passwordConfirm para que no sea parte del update
+    } else {
+      // Si no se proporcionan ambos campos, eliminar password del objeto de datos
+      delete data.password;
+      delete data.passwordConfirm;
+    }
+
+    // Actualizar el usuario en la base de datos
     let updatedUser = await User.findOneAndUpdate({ _id: id }, data, {
       new: true,
     });
-    if (!updatedUser)
+
+    if (!updatedUser) {
       return res
         .status(404)
         .send({ message: 'Usuario no encontrado, no se ha actualizado' });
+    }
+
     return res
       .status(200)
       .send({ message: 'Usuario actualizado', updatedUser });
   } catch (err) {
-    console.error(err);
+    console.error('Error actualizando el usuario:', err);
     return res.status(500).send({ message: 'Error actualizando la cuenta' });
   }
 };
@@ -163,10 +190,37 @@ export const userAdminDefault = async () => {
       role: 'ADMIN_APP',
       tp_status: 'ACTIVE',
     };
+
+    const dataClient = {
+      name: 'Ander',
+      lastname: 'Cabrera',
+      username: 'acabrera',
+      email: 'acab@gmail.com',
+      password: await encrypt('123123'),
+      role: 'CLIENT',
+      tp_status: 'ACTIVE',
+    };
+
+    const adminHotel = {
+      name: 'Admin',
+      lastname: 'Hotel',
+      username: 'ahotel',
+      email: 'admin@hotel.com',
+      password: await encrypt('123123'),
+      role: 'ADMIN_HOTEL',
+      tp_status: 'ACTIVE',
+    };
+
     let defualtCreated = await User.findOne({ email: data.email });
     if (!defualtCreated) {
       let user = new User(data);
       await user.save();
+
+      let userClient = new User(dataClient);
+      await userClient.save();
+
+      let userAdminHotel = new User(adminHotel);
+      await userAdminHotel.save();
       console.log('Usuario admin default creado con exito');
     } else {
       console.log('Usuario default creado con anterioridad');
@@ -174,5 +228,23 @@ export const userAdminDefault = async () => {
   } catch (err) {
     console.error(err);
     console.log('Error creando al usuario Admin por defecto');
+  }
+};
+
+export const addHotelUser = async (req, res) => {
+  try {
+    let { idUser, idHotel } = req.params;
+    let data = {
+      id_hotel: idHotel,
+    };
+    let user = await User.findOneAndUpdate({ _id: idUser }, data, {
+      new: true,
+    });
+    return res.status(200).send({ message: 'Usuario actualizado' });
+  } catch (err) {
+    console.error(err);
+    return res
+      .status(500)
+      .send({ message: 'Error al agregar el hotel al usuario' });
   }
 };
