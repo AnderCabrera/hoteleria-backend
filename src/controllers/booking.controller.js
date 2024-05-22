@@ -41,3 +41,36 @@ export const getDates = async (req, res) => {
       .send({ message: 'Error al obtener las fechas de reservación' });
   }
 };
+
+export const getBooking = async (req, res) => {
+  try {
+    let bookingFound = await Booking.find().populate({
+      path: 'room',
+      populate: {
+        path: 'idHotel', // Cambiado de 'hotel' a 'idHotel'
+        model: 'Hotel',
+      },
+    });
+
+    if (!bookingFound.length) {
+      return res.status(404).send({ message: 'No hay reservaciones' });
+    }
+
+    let bookingsByHotel = {};
+
+    bookingFound.forEach((booking) => {
+      let hotelName = booking.room.idHotel.name; // Cambiado de 'room.hotel' a 'room.idHotel'
+      if (!bookingsByHotel[hotelName]) {
+        bookingsByHotel[hotelName] = 0;
+      }
+      bookingsByHotel[hotelName]++;
+    });
+
+    return res.status(200).send({ bookingsByHotel });
+  } catch (error) {
+    console.error(error);
+    return res
+      .status(500)
+      .send({ message: 'Error al obtener las reservaciones' });
+  }
+};
