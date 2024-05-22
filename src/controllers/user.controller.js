@@ -199,3 +199,21 @@ export const userAdminDefault = async () => {
     console.log('Error creando al usuario Admin por defecto');
   }
 };
+
+export const addHotelUser = async (req, res) => {
+  try {
+    let { idUser, idHotel } = req.params;
+    let data = {
+      id_hotel: idHotel,
+    };
+    let user = await User.findOneAndUpdate({ _id: idUser }, data, {
+      new: true,
+    });
+    return res.status(200).send({ message: 'Usuario actualizado' });
+  } catch (err) {
+    console.error(err);
+    return res
+      .status(500)
+      .send({ message: 'Error al agregar el hotel al usuario' });
+  }
+};

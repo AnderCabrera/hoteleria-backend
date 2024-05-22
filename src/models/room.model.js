@@ -25,7 +25,8 @@ const roomSchema = Schema(
       type: String,
       uppercase: true,
       enum: ['ACTIVE', 'DELETED', 'HIDDEN'],
-      required: true,
+      default: 'ACTIVE',
+      required: false,
     },
     idHotel: {
       type: Schema.ObjectId,

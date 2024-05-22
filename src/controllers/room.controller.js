@@ -3,6 +3,7 @@
 import Room from '../models/room.model.js';
 import TypeRoom from '../models/typeRoom.model.js';
 import Hotel from '../models/hotel.model.js';
+import User from '../models/user.model.js';
 import { addInitialImage } from './roomImages.controller.js';
 import RoomImage from '../models/roomImages.model.js';
 import { populate } from 'dotenv';
@@ -30,9 +31,15 @@ export const getRooms = async (req, res) => {
 
 export const newRoom = async (req, res) => {
   try {
+    let { idUser } = req.params;
+    let foundedUser = await User.findOne({ _id: idUser });
+    let foundedHotel = await Hotel.findOne({ _id: foundedUser.id_hotel });
     let data = req.body;
+    data.idHotel = foundedHotel._id;
     let room = new Room(data);
     await room.save();
+    let foundedRoom = await Room.findOne({ description: data.description });
+    await addInitialImage(data.url, foundedRoom._id);
     return res.status(200).send({ message: 'Habitación agregada con exito' });
   } catch (err) {
     console.error(err);
@@ -83,6 +90,20 @@ export const viewRooms = async (req, res) => {
   } catch (err) {
     console.error(err);
     return res.status(500).send({ message: 'Error viendo las habitaciones' });
+  }
+};
+
+export const viewRoomsHotel = async (req, res) => {
+  try {
+    let { idUser } = req.params;
+    let foundedUser = await User.findOne({ _id: idUser });
+    let foundedRooms = await Room.find({ idHotel: foundedUser.id_hotel });
+    return res.status(200).send({ foundedRooms });
+  } catch (err) {
+    console.error(err);
+    return res
+      .status(500)
+      .send({ message: 'Error al ver las habitaciones del hotel' });
   }
 };
 
