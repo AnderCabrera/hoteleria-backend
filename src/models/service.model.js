@@ -24,7 +24,7 @@ const serviceSchema = Schema(
     },
     hotelId: {
       type: Schema.ObjectId,
-      ref: 'hotel',
+      ref: 'Hotel',
       required: true,
     },
   },
@@ -33,4 +33,4 @@ const serviceSchema = Schema(
   },
 );
 
-export default model('service', serviceSchema);
+export default model('Service', serviceSchema);

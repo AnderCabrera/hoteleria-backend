@@ -2,6 +2,7 @@
 
 import { Router } from 'express';
 import {
+  getRooms,
   newRoom,
   updateRoom,
   viewRooms,
@@ -12,6 +13,8 @@ import { validateJwt, isAdmin } from '../middlewares/validate-jwt.js';
 
 const api = Router();
 
+
+api.get('/get', getRooms);
 api.post('/new/:idUser', /*[validateJwt, isAdmin],*/ newRoom);
 api.put('/update/:id', [validateJwt, isAdmin], updateRoom);
 api.get('/get/:id/:idRoom', [validateJwt], viewRooms);
