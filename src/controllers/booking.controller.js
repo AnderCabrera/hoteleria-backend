@@ -1,6 +1,8 @@
 'use strict';
 
 import Booking from '../models/booking.model.js';
+import User from '../models/user.model.js';
+import Hotel from '../models/hotel.model.js';
 
 export const newBooking = async (req, res) => {
   try {
@@ -39,5 +41,16 @@ export const getDates = async (req, res) => {
     return res
       .status(500)
       .send({ message: 'Error al obtener las fechas de reservación' });
+  }
+};
+
+export const viewClients = async (req, res) => {
+  try {
+    let { idUser } = req.params;
+    let foundedUser = await User.findOne({ _id: idUser });
+    let foundedHotel = await Hotel.findOne({ _id: foundedUser.id_hotel });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).send({ message: 'Error al ver los clientes.' });
   }
 };
