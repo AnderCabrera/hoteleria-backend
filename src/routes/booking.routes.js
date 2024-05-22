@@ -5,19 +5,15 @@ import { validateJwt } from '../middlewares/validate-jwt.js';
 import {
   newBooking,
   getDates,
-  getBookings,
+  getBooking,
+  getBookings
 } from '../controllers/booking.controller.js';
 
 const api = Router();
 
 api.get('/bookings', [validateJwt], getBookings);
-api.get(
-  '/dates/:idRoom',
-  [
-    /* validateJwt */
-  ],
-  getDates,
-);
 api.post('/new/:idRoom/:idUser', [validateJwt], newBooking);
+api.get('/dates/:idRoom', [validateJwt], getDates);
+api.get('/getBooking', [validateJwt], getBooking);
 
 export default api;

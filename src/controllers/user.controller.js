@@ -91,24 +91,51 @@ export const updateUser = async (req, res) => {
   try {
     let { id } = req.params;
     let data = req.body;
+
+    console.log(`Updating user with ID: ${id}`);
+    console.log('Data received:', data);
+
+    // Validar la información actualizable
     let update = checkUpdate(data, id);
-    if (!update)
+    if (!update) {
       return res.status(400).send({
         message:
           'Ha enviado información que no se puede actualizar, o hace falta información',
       });
+    }
+
+    // Verificar si se proporcionan las contraseñas
+    if (data.password && data.passwordConfirm) {
+      if (data.password !== data.passwordConfirm) {
+        return res.status(400).send({
+          message: 'Las contraseñas no coinciden',
+        });
+      }
+      // Encriptar la nueva contraseña
+      data.password = await encrypt(data.passwordConfirm);
+      delete data.passwordConfirm; // eliminar el campo passwordConfirm para que no sea parte del update
+    } else {
+      // Si no se proporcionan ambos campos, eliminar password del objeto de datos
+      delete data.password;
+      delete data.passwordConfirm;
+    }
+
+    // Actualizar el usuario en la base de datos
     let updatedUser = await User.findOneAndUpdate({ _id: id }, data, {
       new: true,
     });
-    if (!updatedUser)
+
+    if (!updatedUser) {
       return res
         .status(404)
         .send({ message: 'Usuario no encontrado, no se ha actualizado' });
+    }
+
     return res
       .status(200)
       .send({ message: 'Usuario actualizado', updatedUser });
   } catch (err) {
-    console.error(err);
+    console.error('Error actualizando el usuario:', err);
     return res.status(500).send({ message: 'Error actualizando la cuenta' });
   }
 };
