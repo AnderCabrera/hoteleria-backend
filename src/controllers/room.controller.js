@@ -5,6 +5,28 @@ import TypeRoom from '../models/typeRoom.model.js';
 import Hotel from '../models/hotel.model.js';
 import { addInitialImage } from './roomImages.controller.js';
 import RoomImage from '../models/roomImages.model.js';
+import { populate } from 'dotenv';
+
+export const getRooms = async (req, res) => {
+  try {
+    let rooms = await Room.find({})
+      .populate({
+        path: 'roomType',
+        select: 'name -_id',
+      })
+      .populate({
+        path: 'idHotel',
+        select: 'name -_id',
+      });
+
+    return res.status(200).send(rooms);
+  } catch (err) {
+    console.error(err);
+    return res
+      .status(500)
+      .send({ message: 'Error al obtener las habitaciones' });
+  }
+};
 
 export const newRoom = async (req, res) => {
   try {

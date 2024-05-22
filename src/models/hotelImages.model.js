@@ -10,7 +10,7 @@ const hotelImagesSchema = Schema(
     },
     hotel_id: {
       type: Schema.ObjectId,
-      ref: 'hotel',
+      ref: 'Hotel',
       required: true,
     },
   },
@@ -19,4 +19,4 @@ const hotelImagesSchema = Schema(
   },
 );
 
-export default model('hotelImages', hotelImagesSchema);
+export default model('HotelImages', hotelImagesSchema);

@@ -10,7 +10,7 @@ const roomImagesSchema = Schema(
     },
     room_id: {
       type: Schema.ObjectId,
-      ref: 'room',
+      ref: 'Room',
       required: true,
     },
   },
@@ -19,4 +19,4 @@ const roomImagesSchema = Schema(
   },
 );
 
-export default model('roomImages', roomImagesSchema);
+export default model('RoomImages', roomImagesSchema);
