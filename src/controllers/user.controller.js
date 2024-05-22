@@ -11,14 +11,14 @@ export const newUser = async (req, res) => {
   try {
     let data = req.body;
     data.password = await encrypt(data.password);
-    data.role = 'CLIENT';
-    data.tp_status = 'ACTIVE';
     let user = new User(data);
     await user.save();
     return res.send({ message: 'Usuario registrado exitosamente' });
   } catch (err) {
     console.error(err);
-    return res.status(500).send({ message: 'Error al crear un nuevo usuario' });
+    return res
+      .status(500)
+      .send({ message: 'Error al crear un nuevo usuario', err });
   }
 };
 
@@ -69,6 +69,16 @@ export const login = async (req, res) => {
   } catch (err) {
     console.error(err);
     return res.status(500).send({ message: 'Error al logear' });
+  }
+};
+
+export const getUsers = async (req, res) => {
+  try {
+    let users = await User.find();
+    return res.send({ users });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).send({ message: 'Error al obtener los usuarios' });
   }
 };
 
@@ -128,6 +138,12 @@ export const deleteUser = async (req, res) => {
       return res
         .status(404)
         .send({ message: 'Usuario no encontrado, no se ha actualizado' });
+    if (deletedUser.role === 'ADMIN_APP') {
+      data = 'ACTIVE';
+      return res
+        .status(403)
+        .send({ message: 'No se puede eliminar un administrador' });
+    }
     let deletedFavorite = await FavoriteHotels.deleteMany({ user_id: id });
     return res.status(200).send({ message: 'Usuario eliminado con exito' });
   } catch (err) {
