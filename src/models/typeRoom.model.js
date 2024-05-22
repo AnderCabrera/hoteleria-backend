@@ -14,4 +14,4 @@ const typeRoomSchema = Schema(
   },
 );
 
-export default model('typeRoom', typeRoomSchema);
+export default model('TypeRoom', typeRoomSchema);

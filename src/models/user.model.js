@@ -25,6 +25,12 @@ const userSchema = Schema(
       type: String,
       required: true,
     },
+    // el id del hotel solo se asigna si el usuario es admin_hotel
+    id_hotel: {
+      type: Schema.ObjectId,
+      ref: 'Hotel',
+      required: false,
+    },
     role: {
       type: String,
       uppercase: true,

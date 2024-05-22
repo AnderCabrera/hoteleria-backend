@@ -18,7 +18,7 @@ const roomSchema = Schema(
     },
     roomType: {
       type: Schema.ObjectId,
-      ref: 'typeRoom',
+      ref: 'TypeRoom',
       required: true,
     },
     tp_status: {
@@ -29,7 +29,7 @@ const roomSchema = Schema(
     },
     idHotel: {
       type: Schema.ObjectId,
-      ref: 'hotel',
+      ref: 'Hotel',
       required: true,
     },
   },
@@ -42,4 +42,4 @@ const roomSchema = Schema(
   },
 );
 
-export default model('room', roomSchema);
+export default model('Room', roomSchema);

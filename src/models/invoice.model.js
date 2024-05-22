@@ -10,18 +10,18 @@ const invoiceSchema = Schema(
     },
     booking_id: {
       type: Schema.ObjectId,
-      ref: 'booking',
+      ref: 'Booking',
       required: true,
     },
     user: {
       type: Schema.ObjectId,
-      ref: 'user',
+      ref: 'User',
       required: true,
     },
     services: [
       {
         type: Schema.ObjectId,
-        ref: 'service',
+        ref: 'Service',
       },
     ],
   },
@@ -33,4 +33,4 @@ const invoiceSchema = Schema(
   },
 );
 
-export default model('invoice', invoiceSchema);
+export default model('Invoice', invoiceSchema);

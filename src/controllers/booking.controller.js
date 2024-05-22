@@ -42,6 +42,31 @@ export const getDates = async (req, res) => {
   }
 };
 
+export const getBookings = async (req, res) => {
+  try {
+    let bookings = await Booking.find({})
+      .populate({
+        path: 'servicesAdquired',
+        select: 'name description price',
+      })
+      .populate({
+        path: 'room',
+        select: 'description peopleCapacity nightPrice',
+      })
+      .populate({
+        path: 'user',
+        select: 'name username -_id',
+      });
+
+    return res.status(200).send(bookings);
+  } catch (err) {
+    console.error(err);
+    return res
+      .status(500)
+      .send({ message: 'Error al obtener las reservaciones' });
+  }
+};
+
 export const getBooking = async (req, res) => {
   try {
     let bookingFound = await Booking.find().populate({
