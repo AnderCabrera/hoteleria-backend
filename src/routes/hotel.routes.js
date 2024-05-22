@@ -14,7 +14,7 @@ const api = Router();
 
 api.post('/newHotel', [validateJwt, isAdmin], newHotel);
 api.put('/update', [validateJwt, isAdmin], updateHotel);
-api.delete('/delete', [validateJwt, isAdmin], deleteHotel);
+api.delete('/delete/:id', [validateJwt, isAdmin], deleteHotel);
 api.get('/get', viewHotels);
 api.get('/search/:id', [validateJwt], viewHotelsSearch);
 

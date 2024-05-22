@@ -12,12 +12,15 @@ export const newInvoice = async (req, res) => {
       booking_id: idBooking._id,
       user: idUser,
     };
+
     if (!data)
       return res.status(500).send({
         message: 'Debe tener todos los datos para hacer la reservación',
       });
+
     let invoice = new Invoice(data);
     await invoice.save();
+
     return res
       .status(201)
       .send({ message: 'Se ha hecho la reservación con exito' });

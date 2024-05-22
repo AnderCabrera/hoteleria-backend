@@ -49,12 +49,14 @@ export const viewRooms = async (req, res) => {
     let foundedRooms = await Room.find({
       roomType: idRoom,
       idHotel: id,
+      tp_status: 'ACTIVE',
     });
-    if (!foundedRooms) {
+
+    if (!foundedRooms)
       return res
         .status(404)
         .send({ message: 'No se han encontrado habitaciones' });
-    }
+
     return res.status(200).send({ foundedRooms });
   } catch (err) {
     console.error(err);

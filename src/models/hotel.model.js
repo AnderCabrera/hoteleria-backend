@@ -20,6 +20,13 @@ const hotelSchema = Schema(
       type: String,
       required: true,
     },
+    tp_status: {
+      type: String,
+      uppercase: true,
+      enum: ['ACTIVE', 'DELETED', 'BANNED'],
+      required: false,
+      default: 'ACTIVE',
+    },
   },
   {
     timestamps: {
