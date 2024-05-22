@@ -6,7 +6,7 @@ import {
   newBooking,
   getDates,
   getBooking,
-  getBookings
+  getBookings,
 } from '../controllers/booking.controller.js';
 
 const api = Router();

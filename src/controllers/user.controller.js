@@ -184,12 +184,27 @@ export const userAdminDefault = async () => {
       role: 'CLIENT',
       tp_status: 'ACTIVE',
     };
+
+    const adminHotel = {
+      name: 'Admin',
+      lastname: 'Hotel',
+      username: 'ahotel',
+      email: 'admin@hotel.com',
+      password: await encrypt('123123'),
+      role: 'ADMIN_HOTEL',
+      tp_status: 'ACTIVE',
+    };
+
     let defualtCreated = await User.findOne({ email: data.email });
     if (!defualtCreated) {
       let user = new User(data);
       await user.save();
+
       let userClient = new User(dataClient);
       await userClient.save();
+
+      let userAdminHotel = new User(adminHotel);
+      await userAdminHotel.save();
       console.log('Usuario admin default creado con exito');
     } else {
       console.log('Usuario default creado con anterioridad');
